@@ -19,13 +19,11 @@ Uses `http-kit` and `clj-time` under the hood so options should be treated like 
 
 Optionally all the date handling can be done outside this library, just pass in strings as per the Pivotal Tracker API documentation.
 
-## Authentication
-
-This library requires that one environment variable `PT_API_TOKEN` be set in order to authenticate with the Pivotal Tracker API.
-
 ## Usage
 
-The main function is `get-all-pages!` and takes two arguments, an endpoint string and options map.
+The main function is `get-all-pages!` and takes three arguments, an API key, an endpoint string and options map.
+
+The options map is optional.
 
 The options map will be used for the parameters documented for the given endpoint.
 
@@ -37,7 +35,7 @@ Example, get all stories created after 2016-01-01:
 
 (def endpoint (str "/projects/" project-id "/stories"))
 (def options {:created_after (t/date-time 2016 1 1)})
-(pt/get-all-pages! endpoint options)
+(pt/get-all-pages! key endpoint options)
 ```
 
 ## License
