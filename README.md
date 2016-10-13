@@ -15,7 +15,11 @@ We figure that you don't need help with:
 
 ## Dependencies
 
-Uses `http-kit` and `clj-time` under the hood.
+Uses `http-kit` and `clj-time` under the hood so options should be treated like `http-kit` parameters and dates should be `clj-time` dates.
+
+## Authentication
+
+This library requires that one environment variable `PT_API_TOKEN` be set in order to authenticate with the Pivotal Tracker API.
 
 ## Usage
 
