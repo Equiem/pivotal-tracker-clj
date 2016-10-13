@@ -1,10 +1,38 @@
 # pivotal-tracker-clj
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to wrap Pivotal Tracker's API.
+
+This library doesn't do anything for any specific endpoints.
+
+We figure that you will appreciate help with:
+- Authentication
+- Pagination of responses (handles parallelisation)
+- Error handling (such as hitting an API rate limit)
+
+We figure that you don't need help with:
+- Building a string that matches an endpoint documented at https://www.pivotaltracker.com/help/api/rest/v5
+- Making dates and times
+
+## Dependencies
+
+Uses `http-kit` and `clj-time` under the hood.
 
 ## Usage
 
-FIXME
+The main function is `get-all-pages!` and takes two arguments, an endpoint string and options map.
+
+The options map will be used for the parameters documented for the given endpoint.
+
+Example, get all stories created after 2016-01-01:
+
+```clojure
+(require '[pivotal-tracker-clj.core :as pt])
+(require '[clj-time.core :as t])
+
+(def endpoint (str "/projects/" project-id "/stories"))
+(def options {:created_after (t/date-time 2016 1 1)})
+(pt/get-all-pages! endpoint options)
+```
 
 ## License
 
