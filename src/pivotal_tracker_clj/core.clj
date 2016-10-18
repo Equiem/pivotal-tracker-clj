@@ -10,7 +10,7 @@
 (defn with-options
   [params options]
   (cond (-> params :method (= :post))
-        (assoc params :body (cheshire.core/generate-string options))
+        (update-in params [:form-params] merge options)
 
         :else
         (update-in params [:query-params] merge options)))
@@ -31,8 +31,8 @@
 
 (defn response-ok?
   [response]
-  (= (and (-> response :status (= 200))
-          (-> response :headers :status (= "200 OK")))))
+  (and  (-> response :status (= 200))
+        (-> response :headers :status (= "200 OK"))))
 
 (defn response->data
   [response]
@@ -50,9 +50,11 @@
   (-> response
       (update-in [:opts] scrub-params)))
 
-(defn str->int [v] (if  (string? v)
-                        (Integer. (re-find #"\d+" v))
-                        (int v)))
+(defn str->int [v]
+  {:pre [(or (string? v) (number? v) (prn v))]}
+  (if (string? v)
+      (Integer. (re-find #"\d+" v))
+      (int v)))
 
 (defn number-of-pages
   [limit pagination-total]
@@ -79,14 +81,24 @@
   (let [base-params (-> (apply hash-map params)
                         (with-url (endpoint->url endpoint))
                         (with-options options)
-                        (with-auth token))
-        first-response (get-page! (with-page-number base-params 1))
-        page-size  (-> first-response :headers :x-tracker-pagination-returned)
-        results-count (-> first-response :headers :x-tracker-pagination-total)
-        number-of-pages     (number-of-pages (str->int page-size) (str->int results-count))
-        other-page-numbers  (range 2 (inc number-of-pages))
-        other-responses      (if  (< 1 number-of-pages)
-                                  (vec (pmap #(get-page! (with-page-number base-params %))
-                                              other-page-numbers)))
-        all-data (into (response->data first-response) (flatten (map response->data other-responses)))]
-    all-data)))
+                        (with-auth token))]
+
+    (case (:method base-params)
+          :get
+          (let [base-params (-> params
+                                (with-url (endpoint->url endpoint))
+                                (with-options options)
+                                (with-auth token))
+                first-response (get-page! (with-page-number base-params 1))
+                page-size  (-> first-response :headers :x-tracker-pagination-returned)
+                results-count (-> first-response :headers :x-tracker-pagination-total)
+                number-of-pages     (number-of-pages (str->int page-size) (str->int results-count))
+                other-page-numbers  (range 2 (inc number-of-pages))
+                other-responses      (if  (< 1 number-of-pages)
+                                          (vec (pmap #(get-page! (with-page-number base-params %))
+                                                      other-page-numbers)))
+                all-data (into (response->data first-response) (flatten (map response->data other-responses)))]
+            all-data)
+
+          ; Fallback to a singular API call for other methods.
+          (get-page! base-params)))))
