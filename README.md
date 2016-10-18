@@ -21,13 +21,25 @@ We figure that you don't need help with:
 
 The main function is `api!` and takes two required arguments, one optional argument and unlimited named parameters.
 
-There is also a convenience function `api!!` that works exactly the same as `api!` but relies on the token to be set as an environment variable (do not pass the API token as the first argument to `api!!`).
-
 ### API token
 
 The first argument (to `api!` but not `api!!`) is an API token for Pivotal tracker.
 
 There is a utility function `pivotal-tracker-clj.core/token` that will attempt to extract the token from the environment variable `PIVOTAL_TRACKER_TOKEN`.
+
+There is also a convenience function `api!!` that curries the result of `pivotal-tracker-clj.core/token` into `api!`, if you're happy to rely on the environment variable.
+
+For example:
+
+```clojure
+(pivotal-tracker-clj.core/api! (pivotal-tracker-clj.core/token) "me")
+```
+
+is identical to:
+
+```clojure
+(pivotal-tracker-clj.core/api!! "me")
+```
 
 ### Endpoint
 
@@ -57,13 +69,6 @@ Example, get all stories created after 2016-01-01:
                                 {:created_after "2016-01-01T00:00:00Z"})
 ```
 
-or
-
-```clojure
-(pivotal-tracker-clj.core/api!! ["projects" 123456 "stories"]
-                                {:created_after "2016-01-01T00:00:00Z"})
-```
-
 ### Params
 
 Additional parameters to `http-kit` can be passed in as named parameters.
@@ -75,14 +80,6 @@ Example, create a new story named "test post":
 ```clojure
 (pivotal-tracker-clj.core/api!  (pivotal-tracker-clj.core/token)
                                 ["projects" 123456 "stories"]
-                                {:name "test post"}
-                                :method :post))
-```
-
-or
-
-```clojure
-(pivotal-tracker-clj.core/api!! ["projects" 123456 "stories"]
                                 {:name "test post"}
                                 :method :post))
 ```
