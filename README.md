@@ -27,7 +27,9 @@ The first argument (to `api!` but not `api!!`) is an API token for Pivotal track
 
 There is a utility function `pivotal-tracker-clj.core/token` that will attempt to extract the token from the environment variable `PIVOTAL_TRACKER_TOKEN`.
 
-There is also a convenience function `api!!` that curries the result of `pivotal-tracker-clj.core/token` into `api!`, if you're happy to rely on the environment variable.
+There is also a convenience function `api!!` that passes the result of `pivotal-tracker-clj.core/token` into `api!`.
+
+If you're happy to rely on the environment variable for all your API calls (pretty common) then just use this instead.
 
 For example:
 
