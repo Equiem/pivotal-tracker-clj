@@ -29,7 +29,7 @@ There is a utility function `pivotal-tracker-clj.core/token` that will attempt t
 
 There is also a convenience function `api!!` that passes the result of `pivotal-tracker-clj.core/token` into `api!`.
 
-If you're happy to rely on the environment variable for all your API calls (pretty common) then just use this instead.
+If you're happy to rely on the environment variable for all your API calls (pretty common) then you can just use this instead.
 
 For example:
 
