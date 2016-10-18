@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [pivotal-tracker-clj.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest api-calls
+
+  (prn (pivotal-tracker-clj.core/api! (pivotal-tracker-clj.core/token)
+                                      ["me"])))
