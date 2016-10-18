@@ -3,6 +3,7 @@
             [pivotal-tracker-clj.core :refer :all]))
 
 (deftest api-calls
-  (pivotal-tracker-clj.core/api!  (pivotal-tracker-clj.core/token)
-                                  ["projects" 493417 "stories"]
+  (pivotal-tracker-clj.core/api!! ["projects" 493417 "stories"]
                                   {:created_after "2016-01-01T00:00:00Z"}))
+                                  ; {:name "test"}))
+                                  ; :method :post))

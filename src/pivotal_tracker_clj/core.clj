@@ -102,3 +102,8 @@
 
           ; Fallback to a singular API call for other methods.
           (get-page! base-params)))))
+
+(defn api!!
+ ([endpoint] (api! (token) endpoint {}))
+ ([endpoint options & params]
+  (apply (partial api! (token) endpoint options) params)))
