@@ -9,6 +9,7 @@ We figure that you will appreciate help with:
 - Handling request vs. API parameters
 - Pagination and parallelisation of API calls
 - Error handling (such as hitting an API rate limit)
+- Logging (and scrubbing sensitive authentication details from the logs)
 
 We figure that you don't need help with:
 - Reading documentation on endpoints and parameters https://www.pivotaltracker.com/help/api/rest/v5
