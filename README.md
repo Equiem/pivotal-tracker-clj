@@ -25,7 +25,7 @@ There is also a convenience function `api!!` that works exactly the same as `api
 
 ### API key
 
-The first argument is an API token for Pivotal tracker.
+The first argument (to `api!` but not `api!!`) is an API token for Pivotal tracker.
 
 There is a utility function `pivotal-tracker-clj.core/token` that will attempt to extract the token from the environment variable `PIVOTAL_TRACKER_TOKEN`.
 
