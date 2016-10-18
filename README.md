@@ -56,6 +56,13 @@ Example, get all stories created after 2016-01-01:
                                 {:created_after "2016-01-01T00:00:00Z"})
 ```
 
+or
+
+```clojure
+(pivotal-tracker-clj.core/api!! ["projects" 123456 "stories"]
+                                {:created_after "2016-01-01T00:00:00Z"})
+```
+
 ### Params
 
 Additional parameters to `http-kit` can be passed in as named parameters.
@@ -67,6 +74,14 @@ Example, create a new story named "test post":
 ```clojure
 (pivotal-tracker-clj.core/api!  (pivotal-tracker-clj.core/token)
                                 ["projects" 123456 "stories"]
+                                {:name "test post"}
+                                :method :post))
+```
+
+or
+
+```clojure
+(pivotal-tracker-clj.core/api!! ["projects" 123456 "stories"]
                                 {:name "test post"}
                                 :method :post))
 ```
