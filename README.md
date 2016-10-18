@@ -23,7 +23,7 @@ The main function is `api!` and takes two required arguments, one optional argum
 
 There is also a convenience function `api!!` that works exactly the same as `api!` but relies on the token to be set as an environment variable (do not pass the API token as the first argument to `api!!`).
 
-### API key
+### API token
 
 The first argument (to `api!` but not `api!!`) is an API token for Pivotal tracker.
 
