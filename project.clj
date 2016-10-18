@@ -1,4 +1,4 @@
-(defproject pivotal-tracker-clj "0.1.0-SNAPSHOT"
+(defproject pivotal-tracker-clj "0.1.0"
   :description "Abstracts the Pivotal Tracker API a bit without implementing every endpoint."
   :url "https://github.com/thedavidmeister/pivotal-tracker-clj"
   :license {:name "Eclipse Public License"

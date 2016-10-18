@@ -19,7 +19,7 @@ We figure that you don't need help with:
 
 Leingingen:
 
-`[pivotal-tracker-clj "0.1.0-SNAPSHOT"]`
+`[pivotal-tracker-clj "0.1.0"]`
 
 Namespace:
 
