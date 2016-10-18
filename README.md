@@ -17,6 +17,12 @@ We figure that you don't need help with:
 
 ## Usage
 
+Leingingen:
+
+`[pivotal-tracker-clj "0.1.0-SNAPSHOT"]`
+
+Namespace:
+
 `(require '[pivotal-tracker-clj.core :as pt])`
 
 The main function is `api!` and takes two required arguments, one optional argument and unlimited named parameters.
